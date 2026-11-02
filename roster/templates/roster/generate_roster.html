@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generate Roster - DataStraw Smart Roster</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+    <nav class="navbar navbar-dark bg-dark shadow-sm">
+        <div class="container-fluid">
+            <span class="navbar-brand mb-0 h1">DataStraw Smart Roster Management System</span>
+            <div>
+                <a href="/employees/" class="btn btn-outline-light btn-sm me-2">Employees</a>
+                <a href="/leaves/" class="btn btn-outline-light btn-sm me-2">Leaves</a>
+                <a href="/admin/" class="btn btn-outline-light btn-sm" target="_blank">Admin</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0">Generate Monthly Operational Roster</h5>
+                    </div>
+                    <div class="card-body">
+                        <form method="POST">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">Select Month</label>
+                                <select name="month" class="form-select">
+                                    <option value="11" selected>November (11)</option>
+                                    <option value="12">December (12)</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">Select Year</label>
+                                <input type="number" name="year" class="form-control" value="2026">
+                            </div>
+                            <button type="submit" class="btn btn-success w-100">Run Scheduling Engine & Generate Roster</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Existing Rosters List -->
+                <div class="card shadow-sm mt-4">
+                    <div class="card-header bg-dark text-white">
+                        <h5 class="mb-0">Existing Generated Rosters</h5>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        {% for r in rosters %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span>{{ r.title }}</span>
+                            <a href="/roster/{{ r.id }}/" class="btn btn-sm btn-outline-primary">View Roster Matrix</a>
+                        </li>
+                        {% empty %}
+                        <li class="list-group-item text-muted text-center py-3">No rosters generated yet.</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

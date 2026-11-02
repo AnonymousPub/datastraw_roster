@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resource Allocation - DataStraw Smart Roster</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-dark bg-dark shadow-sm">
+        <div class="container-fluid">
+            <span class="navbar-brand mb-0 h1">DataStraw Smart Roster Management System</span>
+            <div>
+                <a href="/employees/" class="btn btn-outline-light btn-sm me-2">Employees</a>
+                <a href="/brands/" class="btn btn-outline-light btn-sm me-2">Brands</a>
+                <a href="/admin/" class="btn btn-outline-light btn-sm" target="_blank">Admin Panel</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container my-5">
+        <div class="row mb-4">
+            <div class="col">
+                <h2 class="fw-bold text-dark">Resource Allocations</h2>
+                <p class="text-muted">View employee training and mappings to specific brand processes.</p>
+            </div>
+        </div>
+
+        <!-- Assignments Table Card -->
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Active Employee-Brand-Process Mappings</h5>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0 align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th>#</th>
+                                <th>Employee Name</th>
+                                <th>Assigned Brand</th>
+                                <th>Process Workflow</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in assignments %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td class="fw-semibold">{{ item.employee.first_name }} {{ item.employee.last_name }}</td>
+                                <td><span class="badge bg-success">{{ item.brand.name }}</span></td>
+                                <td><span class="badge bg-info text-dark">{{ item.process.name }} ({{ item.process.code }})</span></td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="4" class="text-center py-4 text-muted">No resource allocations found. Run python manage.py seed_data</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaves & Holidays - DataStraw Smart Roster</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-dark bg-dark shadow-sm">
+        <div class="container-fluid">
+            <span class="navbar-brand mb-0 h1">DataStraw Smart Roster Management System</span>
+            <div>
+                <a href="/employees/" class="btn btn-outline-light btn-sm me-2">Employees</a>
+                <a href="/brands/" class="btn btn-outline-light btn-sm me-2">Brands</a>
+                <a href="/allocations/" class="btn btn-outline-light btn-sm me-2">Allocations</a>
+                <a href="/admin/" class="btn btn-outline-light btn-sm" target="_blank">Admin Panel</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container my-5">
+        <div class="row mb-4">
+            <div class="col">
+                <h2 class="fw-bold text-dark">Leave & Holiday Management</h2>
+                <p class="text-muted">Track public holidays and approved staff leaves for scheduling constraints.</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Public Holidays Table -->
+            <div class="col-md-6 mb-4">
+                <div class="card shadow-sm h-100">
+                    <div class="card-header bg-dark text-white">
+                        <h5 class="mb-0">Public Holidays (Company Calendar)</h5>
+                    </div>
+                    <div class="card-body p-0">
+                        <table class="table table-hover mb-0 align-middle">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Holiday Name</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for h in holidays %}
+                                <tr>
+                                    <td class="fw-semibold">{{ h.date }}</td>
+                                    <td>{{ h.name }}</td>
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td colspan="2" class="text-center py-3 text-muted">No holidays found.</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Leave Requests Table -->
+            <div class="col-md-6 mb-4">
+                <div class="card shadow-sm h-100">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0">Employee Leave Requests</h5>
+                    </div>
+                    <div class="card-body p-0">
+                        <table class="table table-hover mb-0 align-middle">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Employee</th>
+                                    <th>Dates</th>
+                                    <th>Type</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for leave in leaves %}
+                                <tr>
+                                    <td class="fw-semibold">{{ leave.employee.first_name }} {{ leave.employee.last_name }}</td>
+                                    <td>{{ leave.start_date }} to {{ leave.end_date }}</td>
+                                    <td><span class="badge bg-secondary">{{ leave.leave_type }}</span></td>
+                                    <td><span class="badge bg-success">{{ leave.status }}</span></td>
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td colspan="4" class="text-center py-3 text-muted">No leave requests found.</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

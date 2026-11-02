@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brand & Process Rules - DataStraw Smart Roster</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-dark bg-dark shadow-sm">
+        <div class="container-fluid">
+            <span class="navbar-brand mb-0 h1">DataStraw Smart Roster Management System</span>
+            <div>
+                <a href="/employees/" class="btn btn-outline-light btn-sm me-2">Employees</a>
+                <a href="/admin/" class="btn btn-outline-light btn-sm" target="_blank">Admin Panel</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container my-5">
+        <div class="row mb-4">
+            <div class="col">
+                <h2 class="fw-bold text-dark">Brand & Process Management</h2>
+                <p class="text-muted">Configure client brands, active workflows, and minimum staffing rules.</p>
+            </div>
+        </div>
+
+        <!-- Brands & Processes Row -->
+        <div class="row mb-4">
+            <!-- Brands Card -->
+            <div class="col-md-6 mb-3">
+                <div class="card shadow-sm h-100">
+                    <div class="card-header bg-dark text-white">
+                        <h5 class="mb-0">Client Brands</h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            {% for brand in brands %}
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <span class="fw-semibold">{{ brand.name }}</span>
+                                <span class="badge bg-primary">Active Client</span>
+                            </li>
+                            {% empty %}
+                            <li class="list-group-item text-muted">No brands found.</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Processes Card -->
+            <div class="col-md-6 mb-3">
+                <div class="card shadow-sm h-100">
+                    <div class="card-header bg-dark text-white">
+                        <h5 class="mb-0">Operational Processes</h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            {% for proc in processes %}
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <div>
+                                    <span class="fw-semibold">{{ proc.name }}</span>
+                                    <small class="text-muted ms-2">({{ proc.code }})</small>
+                                </div>
+                                <span class="badge bg-secondary">Workflow</span>
+                            </li>
+                            {% empty %}
+                            <li class="list-group-item text-muted">No processes found.</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
